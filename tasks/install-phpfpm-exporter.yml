@@ -1,0 +1,42 @@
+---
+
+- name: Create the phpfpm-exporter group
+  group:
+    name: "{{ phpfpm_exporter_group }}"
+    state: present
+
+- name: Create the phpfpm-exporter user
+  user:
+    name: "{{ phpfpm_exporter_user }}"
+    state: present
+
+- include: github-phpfpm-exporter-release.yml
+  when: not phpfpm_exporter_release_url
+
+- name: Make sure the phpfpm-exporter install directory exists
+  file:
+    dest: "{{ phpfpm_exporter_install_path }}/phpfpm_exporter"
+    state: directory
+    owner: "root"
+    group: "root"
+    mode: 0755
+    recurse: true
+
+- name: Get the name of the phpfpm-exporter release archive
+  set_fact:
+    _phpfpm_exporter_archive: "{{ phpfpm_exporter_release_url | basename }}"
+
+- name: Download the phpfpm-exporter
+  unarchive:
+    src: "{{ phpfpm_exporter_release_url }}"
+    dest: "{{ phpfpm_exporter_install_path }}/phpfpm_exporter"
+    creates: "{{ phpfpm_exporter_install_path }}/phpfpm_exporter/php-fpm_exporter"
+    remote_src: yes
+
+- name: Symlink the phpfpm-exporter binaries
+  file:
+    src: "{{ phpfpm_exporter_install_path }}//phpfpm_exporter/php-fpm_exporter"
+    dest: "{{ phpfpm_exporter_bin_path }}/php-fpm_exporter"
+    state: link
+  notify: restart phpfpm_exporter
+

@@ -1,0 +1,29 @@
+---
+
+# The phpfpm-exporter release to be installed
+phpfpm_exporter_release_tag: "latest"
+
+# The URL from which download the phpfpm-exporter release
+phpfpm_exporter_release_url: ""
+
+# phpfpm-exporter user and group
+phpfpm_exporter_user: "phpfpm_exporter"
+phpfpm_exporter_group: "phpfpm_exporter"
+
+# Directory containing the downloaded phpfpm-exporter release
+phpfpm_exporter_install_path: "/opt"
+
+# Directory to which symlink the installed phpfpm-exporter binaries
+phpfpm_exporter_bin_path: "/usr/local/bin"
+
+# phpfpm-exporter listen address
+phpfpm_exporter_listen_address: "127.0.0.1:9253"
+
+# phpfpm-exporter log level
+phpfpm_exporter_log_level: "info"
+
+# Additional command-line arguments to be added to the phpfpm-exporter unit
+phpfpm_exporter_additional_cli_args: ""
+
+# UNIX Socket Address at which to find the PHP-FPM server.
+phpfpm_exporter_unix_socket: /var/run/php8.0-fpm.sock

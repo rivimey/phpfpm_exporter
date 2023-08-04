@@ -1,0 +1,10 @@
+---
+
+- include: install-phpfpm-exporter.yml
+- include: configure-phpfpm-exporter.yml
+
+- name: Start and enable the phpfpm-exporter service
+  service:
+    name: phpfpm_exporter
+    state: started
+    enabled: true

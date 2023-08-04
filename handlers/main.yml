@@ -1,0 +1,17 @@
+---
+
+- name: restart phpfpm_exporter
+  service:
+    name: phpfpm_exporter
+    state: restarted
+
+- name: reload phpfpm_exporter
+  service:
+    name: phpfpm_exporter
+    state: reloaded
+
+- name: reload systemd and restart phpfpm_exporter
+  command: systemctl daemon-reload
+  notify: restart phpfpm_exporter
+  tags:
+    - skip_ansible_lint
